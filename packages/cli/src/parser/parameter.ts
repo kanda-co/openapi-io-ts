@@ -140,6 +140,8 @@ function buildParsedParameter(
     defaultValue,
   };
 
+  const formattedName = name.includes('-') ? `"${name}"` : name;
+
   if (tag === "ParsedFormParameter") {
     const defaultExplode = paramIn === "query" || paramIn === "cookie";
     const item: ParsedFormParameter = {
@@ -147,12 +149,12 @@ function buildParsedParameter(
       _tag: "ParsedFormParameter",
       explode: param.explode ?? defaultExplode,
     };
-    return parsedItem(item, name);
+    return parsedItem(item, formattedName);
   } else {
     const item: ParsedJsonParameter = {
       ...baseParameter,
       _tag: "ParsedJsonParameter",
     };
-    return parsedItem(item, name);
+    return parsedItem(item, formattedName);
   }
 }
